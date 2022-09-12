@@ -12,30 +12,25 @@ class User {
     }
 
     getFullName() {
-        console.log(`${this.name} ${this.surname}`);
         return `${this.name} ${this.surname}`;
     }
 
     addPet(pet) {
         this.pets.push(pet);
-        console.log(this.pets);
         return this.pets;
     }
 
     countPets() {
-        console.log(this.pets.length);
         return this.pets.length;
     }
 
     addBook(name, author) {
         let book = { name, author };
         this.books.push(book);
-        console.log(this.books);
         return this.books;
     }
 
     getBooksNames() {
-        console.log(this.books.map(book => book.name));
         return this.books.map(book => book.name);
     }
 }
@@ -56,8 +51,8 @@ const user = new User(
     ["Cat", "Dog"]
 );
 
-user.getFullName();
-user.addPet("Dog");
-user.countPets();
-user.addBook("Farenheit 451", "Ray Bradbury");
-user.getBooksNames();
+console.log(user.getFullName());
+console.log(user.addPet("Dog"));
+console.log(user.countPets());
+console.log(user.addBook("Farenheit 451", "Ray Bradbury"));
+console.log(user.getBooksNames());
