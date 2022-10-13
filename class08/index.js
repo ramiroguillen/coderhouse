@@ -1,34 +1,21 @@
-const express = require("express");
 const dotenv = require("dotenv");
-const products = require("./container");
-
 dotenv.config();
 
-const PORT = process.env.PORT || 8888;
+const express = require("express");
 
+const PORT = process.env.PORT || 8080;
 const app = express();
+const router = express.Router();
+
+const productsRouter = require("./src/routes/products");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/uploads"));
+app.use("/api", router);
 
-app.get("/api/products", async (req, res) => {
-    res.json(await products.getAll());
-});
-
-app.get("/api/products/:id", async (req, res) => {
-    res.json(await products.getById(req.params.id));
-});
-
-app.post("/api/products", async (req, res) => {
-    res.json(await products.createNew(req.body));
-});
-
-app.put("/api/products/:id", async (req, res) => {
-    res.json(await products.updateById(req.params.id, req.body));
-});
-
-app.delete("/api/products/:id", async (req, res) => {
-    res.json(await products.deleteById(req.params.id));
-});
+router.use("/products", productsRouter);
 
 app
     .listen(PORT, () => console.log(`SERVER: Running at https://localhost:${PORT}`))

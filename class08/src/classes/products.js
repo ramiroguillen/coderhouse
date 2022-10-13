@@ -22,33 +22,28 @@ class Container {
         return obj;
     }
 
-    getById(id) {
-        let obj = this.content.find(obj => obj.id === parseInt(id));
-        if (obj) {
-            return obj;
-        } else { return { message: "item not found" } }
+    getById(id, obj) {
+        return obj;
     }
 
     getAll() {
         return this.content;
     }
 
-    updateById(id, obj) {
-        let item = this.content.find(obj => obj.id === parseInt(id));
-        if (item) {
-            let i = this.content.indexOf(item);
-            this.content[i].name = obj.name;
-            this.content[i].price = obj.price;
-            this.content[i].thumbnail = obj.thumbnail;
-            try {
-                fs.writeFileSync(this.pathfile, JSON.stringify(this.content));
-            } catch (error) { throw new Error(`updateById: ${error}`) }
-        } else { return { message: "item not found" } }
-        return item;
+    updateById(id, obj, objUpdated) {
+        let i = this.content.indexOf(obj);
+        this.content[i].name = objUpdated.name;
+        this.content[i].price = objUpdated.price;
+        this.content[i].thumbnail = objUpdated.thumbnail;
+        try {
+            fs.writeFileSync(this.pathfile, JSON.stringify(this.content));
+        } catch (error) { throw new Error(`updateById: ${error}`) }
+        return this.content[i];
     }
 
     deleteById(id) {
-        this.content = this.content.filter(obj => obj.id !== parseInt(id));
+        let content = this.content.filter(obj => obj.id !== parseInt(id));
+        this.content = content;
         try {
             fs.writeFileSync(this.pathfile, JSON.stringify(this.content));
         } catch (error) { throw new Error(`deleteById: ${error}`) }
@@ -56,9 +51,9 @@ class Container {
     }
 
     deleteAll() {
-        this.content = [];
+        let content = [];
         try {
-            fs.writeFileSync(this.pathfile, JSON.stringify(this.content));
+            fs.writeFileSync(this.pathfile, JSON.stringify(content));
         } catch (error) { throw new Error(`deleteAll: ${error}`) }
         return this.content;
     }
