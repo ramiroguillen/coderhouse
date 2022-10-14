@@ -5,21 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts.js"></script>
     <title>ATOM</title>
 </head>
 
 <body>
     <main>
-        <form method="POST" action="/api/products">
-            <h2>New Product</h2>
-            <label>Name</label>
-            <input type="text" name="name" id="name">
-            <label>Price</label>
-            <input type="number" name="price" id="price">
-            <label>Thumbnail</label>
-            <input type="text" name="thumbnail" id="thumbnail">
-            <input type="submit" value="Add">
-        </form>
+        <section id="chat">
+            <div id="messages">
+
+            </div>
+            <form onsubmit="return addMessage(this)">
+                <input type="text" name="message" placeholder="message" id="message">
+                <input type="submit" value="send">
+            </form>
+        </section>
     </main>
 </body>
 
