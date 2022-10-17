@@ -1,0 +1,20 @@
+div(class="w-50 d-flex flex-column align-items-center")
+    table(class="table")
+        thead
+            tr
+                th(scope="col")="Name"
+                th(scope="col")="Price"
+                th(scope="col")="Thumbnail"
+        tbody
+            if products.length 
+                each element in products
+                    tr
+                        th(scope="row" class="align-middle")=element.name
+                        td(class="align-middle")="$ "+ element.price
+                        td
+                            img(src=element.thumbnail alt=element.name class="rounded mx-auto d-block" style="height:96px;width:96px")
+            else 
+                tr
+                    th(scope="row" class="align-middle" colspan="3")="There are no elements to show"
+    a(href="/" class="mt-3")
+        button(class="btn btn-primary")="Go to Form"

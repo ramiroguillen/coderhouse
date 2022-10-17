@@ -1,0 +1,39 @@
+<div class="w-50 d-flex flex-column align-items-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Thumbnail</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if (products.length) { %>
+                <% products.map(e=> { %>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <%= e.name %>
+                        </th>
+                        <td class="align-middle">$ <%= e.price %>
+                        </td>
+                        <td>
+                            <img src=<%=e.thumbnail %> alt=<%= e.name %> class="rounded mx-auto d-block"
+                                style="height:96px;width:96px">
+                        </td>
+                    </tr>
+                    <% }) %>
+                        <% } else {%>
+                            <tr>
+                                <th scope="row" class="align-middle" colspan="3">There are no elements to show</th>
+                            </tr>
+                            <% } %>
+        </tbody>
+    </table>
+
+    <a href="/" class="mt-3">
+        <button class="btn btn-primary">
+            Go to Form
+        </button>
+    </a>
+</div>
