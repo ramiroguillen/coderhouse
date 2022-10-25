@@ -11,22 +11,20 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/scripts.js"></script>
-    <title>ATOM</title>
+    <script src="scripts.js"></script>
+    <title>Ramiro Guillen - Class 12</title>
 </head>
 
 <body>
-    <main>
-        <section id="chat">
-            <div id="messages">
-
-            </div>
-            <form onsubmit="return addMessage(this)">
-                <input type="text" name="message" placeholder="message" id="message">
-                <input type="submit" value="send">
-            </form>
-        </section>
-    </main>
+    <div class="container d-flex flex-column align-items-center justify-content-center mt-3">
+        <%- include("products-form.ejs") %>
+        <%- include("products-table.ejs") %>
+    </div>
+    <div>
+        <div class="container d-flex justify-content-center mt-3">
+            <%- include("chat.ejs") %>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,8 +1,10 @@
-const { Router } = require("express");
+import { Router } from "express";
+import productsRouter from "./productsRouter.js";
+import viewsRouter from "./viewsRouter.js";
 
-const router = Router(); // router init, import other routes
-const productsRouter = require("./products.router");
-// set routes
-router.use("/products", productsRouter); 
+const router = Router();
 
-module.exports = router;
+router.use("/", viewsRouter);
+router.use("/api/products", productsRouter);
+
+export default router;
