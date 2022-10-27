@@ -1,5 +1,5 @@
 import Container from "../containers/memory.js"
 
-const products = new Container(); // new memory instance for products
+const products = new Container();
 
 export default products;

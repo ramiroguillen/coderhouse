@@ -1,5 +1,5 @@
 import Container from "../containers/memory.js"
 
-const log = new Container(); // new memory instance for products
+const log = new Container();
 
 export default log;

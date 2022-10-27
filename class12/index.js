@@ -1,49 +1,41 @@
 import dotenv from "dotenv";
+import express from "express";
+import { Server as HttpServer } from "http";
+import { Server as IOServer } from "socket.io";
 
-dotenv.config(); // configuration .env
-
-import express from "express"; // import express
-import { Server as HttpServer } from "http"; // import http
-import { Server as IOServer } from "socket.io"; // import socket.io
-import ejs from "ejs";
-
-import router from "./src/routes/index.js";  // import router
-
-const PORT = process.env.PORT || 8080; // port config
-const app = express(); // express app init
-
-const httpServer = new HttpServer(app); // http server init
-export const io = new IOServer(httpServer); // socket.io init
-
-// app config
-app.use(express.json()); // parses incoming requests with JSON payloads
-app.use(express.urlencoded({ extended: true })); // parses incoming requests with urlencoded payloads
-app.use(express.static("public"));
-// view engine
-app.set("view engine", "ejs");
-app.set("views", "./src/views"); // views directory
-
-app.use("/", router); // router config
-
-// launch http server on port, if error log error
-httpServer.listen(PORT).on("error", (error) => console.log(`SERVER: ${error}`));
-
+import router from "./src/routes/index.js";
 import log from "./src/apis/logApi.js";
 import chat from "./src/apis/chatApi.js"
 import products from "./src/apis/productsApi.js";
 
-// launch socket.io
-io.on("connection", socket => { // on new connection
+dotenv.config();
 
-    socket.emit("log"); // request client data
-    socket.on("logged", (data) => { // recieve data from client
-        log.createNew(data); // store data
+const PORT = process.env.PORT || 8080;
+const app = express();
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use("/", router);
+
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+
+httpServer.listen(PORT).on("error", (error) => console.log(`SERVER: ${error}`));
+
+io.on("connection", socket => {
+
+    socket.emit("log");
+    socket.on("logged", (data) => {
+        log.createNew(data);
     });
 
-    socket.emit("chat", chat.getAll()); // send stored data
+    socket.emit("chat", chat.getAll());
     socket.on("message", (data) => {
         chat.createNew(data);
-        io.sockets.emit("chat", chat.getAll()); // send data to all clients
+        io.sockets.emit("chat", chat.getAll());
     });
 
     socket.emit("products", products.getAll());

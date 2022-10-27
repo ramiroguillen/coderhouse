@@ -1,1 +1,0 @@
-[{"name":"Monitor","price":1000,"thumbnail":"http://placekitten.com/200/300","id":1},{"name":"Keyboard","price":750,"thumbnail":"http://placekitten.com/200/300","id":2},{"name":"Mouse","price":500,"thumbnail":"http://placekitten.com/200/300","id":3}]

@@ -1,7 +1,7 @@
-const socket = io.connect(); // connection to server
+const socket = io.connect();
 
-function renderChat(data) { // recieve chat data
-    const html = data.map((e, i) => { // generate html for each element
+function renderChat(data) {
+    const html = data.map((e, i) => {
         return (` 
             <div id=${i} class="d-flex" style="height:20px">
                 <b class="me-1">${e.user}:</b>
@@ -10,19 +10,20 @@ function renderChat(data) { // recieve chat data
             </div>`
         );
     }).join(" ");
-    document.getElementById("chat").innerHTML = html; // render chat
+    document.getElementById("chat").innerHTML = html;
     return;
 }
 
-function addMessage(e) { // recieve new data from index.html
+function addMessage(e) {
+    e.preventDefault();
     const text = document.getElementById("message").value;
     const date = new Date().getHours() + ":" + new Date().getMinutes();
-    socket.emit("message", message = { user: socket.id, date, message: text }); // send data to server
+    socket.emit("message", message = { user: socket.id, date, message: text });
     return;
 }
 
 function renderProducts(data) {
-    const html = data.map((e, i) => { // generate html for each element
+    const html = data.map((e, i) => {
         return (` 
             <tr id=${i}>
                 <th scope="row" class="align-middle">${e.name}</th>
@@ -38,25 +39,25 @@ function renderProducts(data) {
             </tr>`
         );
     }).join(" ");
-    document.getElementById("products-table-body").innerHTML = html; // render list
+    document.getElementById("products-table-body").innerHTML = html;
     return;
 }
 
-function addProduct(e) { // recieve new data from index.html
+function addProduct(e) {
+    e.preventDefault();
     const name = document.getElementById("name").value;
     const price = document.getElementById("price").value;
     const thumbnail = document.getElementById("thumbnail").value;
-    socket.emit("new-product", product = { name, price, thumbnail }); // send data to server
+    socket.emit("new-product", product = { name, price, thumbnail });
     return;
 }
 
-socket.on("log", () => { // listen for log requests
+socket.on("log", () => {
     let date = new Date();
-    let user = { user: socket.id, loggedAt: date }; // generate log data
-    socket.emit("logged", user); // send data to server
+    let user = { user: socket.id, loggedAt: date };
+    socket.emit("logged", user);
 });
 
-// listen for chat requests, when heard render chat data
 socket.on("chat", (chat) => renderChat(chat));
 
 socket.on("products", (items) => renderProducts(items));

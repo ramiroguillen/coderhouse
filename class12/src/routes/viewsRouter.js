@@ -4,8 +4,7 @@ import products from "../apis/productsApi.js";
 const viewsRouter = Router();
 
 viewsRouter.get("/", (req, res) => {
-    let page = "products-form";
-    res.render("main", { page: page })
+    res.render("main")
 });
 
 viewsRouter.post("/products", async (req, res) => {
@@ -15,8 +14,7 @@ viewsRouter.post("/products", async (req, res) => {
 
 viewsRouter.get("/products", (req, res) => {
     let elements = products.getAll();
-    let page = "products-table";
-    res.render("main", { page: page, products: elements });
+    res.render("main", { products: elements });
 });
 
 export default viewsRouter;
