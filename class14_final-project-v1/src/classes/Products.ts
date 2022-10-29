@@ -14,6 +14,7 @@ class Products {
 
     public createNew(item: IProduct) {
         item.id = this.items.length ? this.items.length + 1 : 1;
+        item.timestamp = new Date();
         this.items.push(item);
         return item.id;
     }
@@ -22,12 +23,13 @@ class Products {
         const item = this.items.find(e => e.id === parseInt(id));
         if (item) {
             const index = this.items.indexOf(item);
-            let key: keyof typeof update;
-            for (key in update) {
-                if (item[key]) {
-                    item[key] = update[key];
-                }
-            }
+            item.name = update.name ? update.name : item.name;
+            item.description = update.description ? update.description : item.description;
+            item.code = update.code ? update.code : item.code;
+            item.thumbnail = update.thumbnail ? update.thumbnail : item.thumbnail;
+            item.price = update.price ? update.price : item.price;
+            item.stock = update.stock ? update.stock : item.stock;
+            item.timestamp = new Date();
             this.items[index] = item;
             return this.items[index];
         }

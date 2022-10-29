@@ -8,11 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-function findById(req, res, next) {
+exports.findCartById = exports.findProductById = void 0;
+const Products_1 = __importDefault(require("../classes/Products"));
+const Carts_1 = __importDefault(require("../classes/Carts"));
+function findProductById(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        let element;
-        if (element) {
+        let item = Products_1.default.items.find(e => e.id === parseInt(req.params.id));
+        if (item) {
             next();
         }
         else {
@@ -20,4 +26,16 @@ function findById(req, res, next) {
         }
     });
 }
-exports.default = findById;
+exports.findProductById = findProductById;
+function findCartById(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let item = Carts_1.default.items.find(e => e.id === parseInt(req.params.id));
+        if (item) {
+            next();
+        }
+        else {
+            res.json({ error: "item not found" });
+        }
+    });
+}
+exports.findCartById = findCartById;

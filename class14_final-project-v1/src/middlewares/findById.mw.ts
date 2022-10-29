@@ -1,10 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 
-async function findById(req: Request, res: Response, next: NextFunction) {
-    let element;
-    if (element) {
+import products from "../classes/Products";
+import carts from "../classes/Carts";
+
+export async function findProductById(req: Request, res: Response, next: NextFunction) {
+    let item = products.items.find(e => e.id === parseInt(req.params.id));
+    if (item) {
         next();
     } else { res.json({ error: "item not found" }) }
 }
 
-export default findById;
+export async function findCartById(req: Request, res: Response, next: NextFunction) {
+    let item = carts.items.find(e => e.id === parseInt(req.params.id));
+    if (item) {
+        next();
+    } else { res.json({ error: "item not found" }) }
+}
