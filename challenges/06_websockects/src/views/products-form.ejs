@@ -1,0 +1,23 @@
+<section class="w-75 d-flex flex-column align-items-center">
+
+    <h2>Submit new product</h2>
+
+    <form onsubmit="return addProduct(this)" class="d-flex flex-column align-items-center w-75">
+        <div class="my-3">
+            <input type="text" id="name" name="name" class="form-control" placeholder="name">
+        </div>
+
+        <div class="mb-3">
+            <input type="number" id="price" name="price" class="form-control" placeholder="$">
+        </div>
+
+        <div class="mb-3">
+            <input type="text" id="thumbnail" name="thumbnail" class="form-control" placeholder="thumbnail url">
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+</section>
